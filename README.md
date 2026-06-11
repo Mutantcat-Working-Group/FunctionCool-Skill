@@ -4,8 +4,6 @@
 <p><em>为 Claude / Cursor 提供"写代码"能力的轻量级 Skill</em></p>
 </div>
 
----
-
 ## 一、功能简介
 
 **FunctionCool Skill** 是一个面向 AI 编程助手（Claude Code / Cursor 等）的极简技能插件。它不携带任何模型权重、不依赖任何本地运行时，**仅由一份 Markdown 说明 + 一个 100 行的 Shell 脚本组成，整包 28KB**。
