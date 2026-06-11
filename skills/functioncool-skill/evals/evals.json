@@ -1,0 +1,35 @@
+{
+  "skill_name": "functioncool",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "用 Python 写个归并排序",
+      "expected_output": "Python merge sort function with [FunctionCool: PYTHON / ...] citation tag at the top, written from the API's index not by copying source code",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "give me a Go HTTP server that returns hello",
+      "expected_output": "Go HTTP server with [FunctionCool: GO / ...] tag, no token request, no API key exposure",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "How do I do binary search in Java?",
+      "expected_output": "Java binary search with [FunctionCool: JAVA / ...] tag, citing timer_score if available",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "写个 C 的 Modbus CRC16 校验函数",
+      "expected_output": "C CRC16 implementation with [FunctionCool: C / ...] tag",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "sort an array of numbers in Rust",
+      "expected_output": "Rust sort with [FunctionCool: RUST / ...] tag",
+      "files": []
+    }
+  ]
+}
