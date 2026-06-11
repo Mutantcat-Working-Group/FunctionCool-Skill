@@ -27,9 +27,16 @@ Output tokens cost ~5× more than input tokens on most providers. Indexing first
 
 ### Claude Code / Cursor
 
+**macOS / Linux:**
 ```bash
 git clone https://github.com/Mutantcat-Working-Group/FunctionCool-Skill.git \
   ~/.claude/skills/functioncool
+```
+
+**Windows (PowerShell):**
+```powershell
+git clone https://github.com/Mutantcat-Working-Group/FunctionCool-Skill.git `
+  "$env:USERPROFILE\.claude\skills\functioncool"
 ```
 
 Restart Claude / Cursor so the skill is discovered. The skill will appear in the available-skills list as `functioncool`.
@@ -64,7 +71,9 @@ def merge_sort(arr):
 .
 ├── SKILL.md            the skill body (loaded when triggered)
 ├── scripts/
-│   └── query.sh        API helper — fetches index, strips code field
+│   ├── query.py        ★ cross-platform implementation (Windows / macOS / Linux, pure stdlib)
+│   ├── query.sh        bash shim that forwards to query.py (kept for backward compatibility)
+│   └── query.ps1       Windows PowerShell-native fallback (no Python required)
 ├── evals/
 │   └── evals.json      test prompts for regression / iteration
 └── README.md           this file
@@ -72,11 +81,17 @@ def merge_sort(arr):
 
 ## How the helper works
 
-[`scripts/query.sh`](scripts/query.sh) is a small bash script that:
+[`scripts/query.py`](scripts/query.py) is the canonical, cross-platform implementation
+(pure Python 3 stdlib — no third-party deps). It:
 
 1. Calls `https://www.functioncool.xyz/skillapi?token=mutantcat&q=…&lang=…`.
 2. Strips the `code` field from each result.
 3. Returns a slim JSON of just the index (name, signature, complexity, tags).
+
+`scripts/query.sh` is a thin bash shim that forwards to `query.py` (kept so that
+older `bash query.sh …` invocations keep working). `scripts/query.ps1` is the
+parallel PowerShell-native implementation for Windows users without Python —
+same contract, different runtime.
 
 The hardcoded token is a permanent, public, low-privilege key — **do not change it without coordinating with the FunctionCool maintainer**.
 
@@ -119,17 +134,30 @@ Response (slimmed by the helper):
 
 Run the helper directly to inspect the slim index:
 
+**macOS / Linux:**
 ```bash
+python3 scripts/query.py "merge sort" "PYTHON"
+# or the legacy shim, still works:
 bash scripts/query.sh "merge sort" "PYTHON"
+```
+
+**Windows (PowerShell + Python):**
+```powershell
+python "$env:USERPROFILE\.claude\skills\functioncool\scripts\query.py" "merge sort" "PYTHON"
+```
+
+**Windows (PowerShell native — no Python required):**
+```powershell
+powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\.claude\skills\functioncool\scripts\query.ps1" -Query "merge sort" -Lang "PYTHON"
 ```
 
 ## Iteration / improving the skill
 
 The skill body and helper are intentionally small. If you want to tune the trigger description, add new lang codes, or change the citation format:
 
-1. Edit `SKILL.md` and/or `scripts/query.sh`.
+1. Edit `SKILL.md` and/or `scripts/query.py` (the canonical implementation).
 2. Add a test prompt to `evals/evals.json` that exercises the change.
-3. Test the helper against the live API: `bash scripts/query.sh "your query" "LANG"`.
+3. Test the helper against the live API: `python3 scripts/query.py "your query" "LANG"`.
 4. Re-install by re-copying the files into your skills directory.
 
 ## License

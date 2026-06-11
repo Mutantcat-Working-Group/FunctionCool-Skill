@@ -21,10 +21,16 @@
 
 #### 1. 安装(以 Claude Code 为例)
 
+**macOS / Linux:**
 ```bash
-# 一行命令完成安装
 git clone https://github.com/Mutantcat-Working-Group/FunctionCool-Skill.git \
   ~/.claude/skills/functioncool
+```
+
+**Windows (PowerShell):**
+```powershell
+git clone https://github.com/Mutantcat-Working-Group/FunctionCool-Skill.git `
+  "$env:USERPROFILE\.claude\skills\functioncool"
 ```
 
 安装后目录结构如下（**总共 28KB**）：
@@ -33,12 +39,20 @@ git clone https://github.com/Mutantcat-Working-Group/FunctionCool-Skill.git \
 ~/.claude/skills/functioncool/
 ├── SKILL.md              # 技能描述（自动加载）
 ├── scripts/
-│   └── query.sh          # 100 行 Shell 脚本，负责查 API
+│   ├── query.py          # ★ 跨平台主实现（Windows / macOS / Linux）
+│   ├── query.sh          # 兼容旧调用的 bash 转发脚本（自动调用 query.py）
+│   └── query.ps1         # Windows 原生 PowerShell 兜底（无需 Python）
 └── evals/
     └── evals.json        # 回归测试用例
 ```
 
 重启 Claude / Cursor 即可。**无需配置 Token、无需登录、无需任何环境变量**——Token 硬编码在脚本里，直接调用。
+
+> 💡 **跨平台调用方式**：
+> - macOS / Linux：`python3 scripts/query.py "<关键词>" "<语言>"`
+> - Windows（已装 Python）：`python "$env:USERPROFILE\.claude\skills\functioncool\scripts\query.py" "<关键词>" "<语言>"`
+> - Windows（无 Python）：`powershell -ExecutionPolicy Bypass -File scripts\query.ps1 -Query "<关键词>" -Lang "<语言>"`
+> - 旧版 `bash scripts/query.sh ...` 仍然兼容，会自动转发到 `query.py`。
 
 #### 2. 使用
 
@@ -68,8 +82,19 @@ def merge_sort(arr):
 
 想确认脚本工作正常？直接跑：
 
+**macOS / Linux:**
 ```bash
-bash ~/.claude/skills/functioncool/scripts/query.sh "merge sort" "PYTHON"
+python3 ~/.claude/skills/functioncool/scripts/query.py "merge sort" "PYTHON"
+```
+
+**Windows (PowerShell + Python):**
+```powershell
+python "$env:USERPROFILE\.claude\skills\functioncool\scripts\query.py" "merge sort" "PYTHON"
+```
+
+**Windows (PowerShell 原生,无 Python):**
+```powershell
+powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\.claude\skills\functioncool\scripts\query.ps1" -Query "merge sort" -Lang "PYTHON"
 ```
 
 返回的是一份**精简版 JSON**（已经去掉了 `code` 字段）：
@@ -180,5 +205,5 @@ GET https://www.functioncool.xyz/skillapi
 ### 进阶：迭代 Skill 本身
 
 - 想改触发条件？编辑 `SKILL.md` 顶部的 `description`。
-- 想加语言？在 `query.sh` 的 `LANG` 参数里加。
+- 想加语言？在 `query.py` 的 URL 构造或 `SKILL.md` 的 `LANG` 参数说明里加。
 - 想加测试用例？往 `evals/evals.json` 追加。
