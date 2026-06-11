@@ -1,23 +1,14 @@
 <div align="center">
 <img src="./logo.png" style="width:100px;" width="100"/>
 <h2>FunctionCool Skill</h2>
-<p><em>为 Claude / Cursor 提供"写代码"能力的轻量级 Skill</em></p>
+<p><em> 为 Agent 提供"写代码"能力的轻量级 Skill</em></p>
 </div>
 
 ###  一、功能简介
 
-**FunctionCool Skill** 是一个面向 AI 编程助手（Claude Code / Cursor 等）的极简技能插件。它不携带任何模型权重、不依赖任何本地运行时，**仅由一份 Markdown 说明 + 一个 100 行的 Shell 脚本组成，整包 28KB**。
+**FunctionCool Skill** 是一个面向 AI 编程助手（Claude Code / Cursor / Codex 等）的极简技能插件。它不携带任何模型权重、不依赖任何本地运行时，**仅由一份 Markdown 说明 + 一个 100 行的 Shell 脚本组成，整包 28KB**。
 
 它能做的事情只有一件：**当你在写代码时，让模型在生成实现之前，先去 FunctionCool 函数库查一份"方法索引"，然后再由模型自己把函数写出来**。
-
-| 特性 | 数值 | 说明 |
-||||
-| 总体积 | **28 KB** | 4 个文件、478 行 |
-| 模型权重 | **0** | 无需下载任何模型 |
-| 本地依赖 | **0** | 只需 `bash` + `curl` + `python3`（macOS / Linux 均有） |
-| 启动耗时 | **0** | 不是进程，常驻无 |
-| 适用语言 | 11 种 | C / C++ / Go / Python / Java / JavaScript / Rust / MATLAB / PHP / Ruby / Verilog |
-| Token 节省 | **60-90%** | 走 prompt cache 后接近零成本 |
 
 #### 核心卖点
 
@@ -28,7 +19,7 @@
 
 ###  二、基础用法
 
-#### 1. 安装
+#### 1. 安装(以 Claude Code 为例)
 
 ```bash
 # 一行命令完成安装
