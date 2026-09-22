@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check-scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Shell syntax
+        run: |
+          shopt -s globstar nullglob
+          for f in **/*.sh; do
+            bash -n "$f"
+          done
+
+      - name: Python syntax
+        run: |
+          shopt -s globstar nullglob
+          for f in **/*.py; do
+            python3 -m py_compile "$f"
+          done
+
