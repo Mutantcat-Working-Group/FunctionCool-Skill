@@ -4,6 +4,8 @@
 <p><em>给 AI 编程助手装上「函数库检索」能力</em></p>
 </div>
 
+**发行方**：由异猫工作群（mutantcat.org）发行 · GitHub: <https://github.com/Mutantcat-Working-Group>
+
 > 一个装在 Claude Code / Cursor / Codex 等 AI 编程助手里的轻量技能插件。
 > 模型写实现之前，先去 FunctionCool 函数库查一份方法索引，再据此写代码。
 

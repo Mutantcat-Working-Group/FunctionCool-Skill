@@ -12,6 +12,8 @@ description: |
 
 # FunctionCool — Token-Efficient Code Generation
 
+> 由异猫工作群（mutantcat.org）发行 · GitHub: https://github.com/Mutantcat-Working-Group
+
 ## Why this skill exists (the model should internalize this)
 
 A naive "write me a Python function to do X" exchange costs the model a lot of **output tokens** (the expensive side). With this skill we invert the cost:
