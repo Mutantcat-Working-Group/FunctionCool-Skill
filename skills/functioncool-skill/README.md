@@ -6,7 +6,7 @@ A Claude / Cursor skill that turns "write me a function in language X" into a to
 
 When a user asks Claude to write code in a supported language, this skill:
 
-1. **Queries** the [FunctionCool](https://www.functioncool.xyz) function library for relevant function metadata (name, signature, description, complexity scores, tags).
+1. **Queries** the [FunctionCool](https://functioncool.mutantcat.org) function library for relevant function metadata (name, signature, description, complexity scores, tags).
 2. **Strips the bulky `code` field** from the response — the model only sees the *index*, not the source.
 3. **Writes the implementation itself**, citing the index it referenced.
 
@@ -84,7 +84,7 @@ def merge_sort(arr):
 [`scripts/query.py`](scripts/query.py) is the canonical, cross-platform implementation
 (pure Python 3 stdlib — no third-party deps). It:
 
-1. Calls `https://www.functioncool.xyz/skillapi?token=mutantcat&q=…&lang=…`.
+1. Calls `https://functioncool.mutantcat.org/skillapi?token=mutantcat&q=…&lang=…`.
 2. Strips the `code` field from each result.
 3. Returns a slim JSON of just the index (name, signature, complexity, tags).
 
@@ -98,7 +98,7 @@ The hardcoded token is a permanent, public, low-privilege key — **do not chang
 ## API contract
 
 ```
-GET https://www.functioncool.xyz/skillapi
+GET https://functioncool.mutantcat.org/skillapi
     ?token=mutantcat
     &q={url-encoded query}
     &lang={C|CPP|GO|PYTHON|JAVA|JAVASCRIPT|RUST|MATLAB|PHP|RUBY|VERILOG|all}

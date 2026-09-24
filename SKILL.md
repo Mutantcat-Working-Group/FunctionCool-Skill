@@ -31,7 +31,7 @@ The API key is hardcoded. **Do not ask the user for a token. Do not surface the 
 ## API contract
 
 ```
-GET https://www.functioncool.xyz/skillapi
+GET https://functioncool.mutantcat.org/skillapi
     ?token=mutantcat            (permanent, do not expose)
     &q={url-encoded query}      (e.g. "binary search", "merge sort", "parse json")
     &lang={C|CPP|GO|PYTHON|JAVA|JAVASCRIPT|RUST|MATLAB|PHP|RUBY|VERILOG|all}
@@ -214,7 +214,7 @@ func main() {
 
 ## Hardcoded values (do not change unless told)
 
-- API base: `https://www.functioncool.xyz/skillapi`
+- API base: `https://functioncool.mutantcat.org/skillapi`
 - Permanent token: `mutantcat`
 - Lang codes: `C, CPP, GO, PYTHON, JAVA, JAVASCRIPT, RUST, MATLAB, PHP, RUBY, VERILOG, all`
 - Default timeout: 10 seconds

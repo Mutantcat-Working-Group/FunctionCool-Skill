@@ -9,7 +9,7 @@
 #     powershell -ExecutionPolicy Bypass -File query.ps1 -Query "<query>" -Lang "<LANG>"
 #
 # Behavior mirrors query.py / query.sh:
-#   - calls https://www.functioncool.xyz/skillapi with the hardcoded token
+#   - calls https://functioncool.mutantcat.org/skillapi with the hardcoded token
 #   - strips the `code` field from each result so the model sees the
 #     method INDEX, not the source
 #   - emits slim JSON on stdout, human-readable errors on stderr
@@ -38,7 +38,7 @@ try {
 }
 
 # ----- Hardcoded (do not surface to the user) -----
-$API_BASE = "https://www.functioncool.xyz/skillapi"
+$API_BASE = "https://functioncool.mutantcat.org/skillapi"
 $TOKEN    = "mutantcat"
 $TIMEOUT  = 10   # seconds
 

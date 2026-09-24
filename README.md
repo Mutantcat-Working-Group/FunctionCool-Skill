@@ -23,7 +23,7 @@
 
 朴素流程是「用户提问 → 模型直接吐完整源码 → 用户」，几十到几百行全砸在输出 token 上。FunctionCool Skill 把它拆成两步：
 
-第一步，查索引（输入 token，便宜）：模型向 `https://www.functioncool.xyz/skillapi` 发一次 HTTP GET，拿回一份精简 JSON——函数名、签名、描述、复杂度、标签、耗时与内存评分。脚本会主动删掉 `code` 字段，模型只看得到「方法长什么样」，看不到「方法怎么写」。
+第一步，查索引（输入 token，便宜）：模型向 `https://functioncool.mutantcat.org/skillapi` 发一次 HTTP GET，拿回一份精简 JSON——函数名、签名、描述、复杂度、标签、耗时与内存评分。脚本会主动删掉 `code` 字段，模型只看得到「方法长什么样」，看不到「方法怎么写」。
 
 第二步，写代码（输出 token，更短更准）：模型拿这份方法索引当目标清单，自行写实现。不是抄代码，因为源码根本没传过来。
 
@@ -122,7 +122,7 @@ git clone https://github.com/Mutantcat-Working-Group/FunctionCool-Skill.git `
 
 ### 备注
 
-- API 契约：`GET https://www.functioncool.xyz/skillapi?token=mutantcat&q=<查询词>&lang=<C|CPP|GO|PYTHON|JAVA|JAVASCRIPT|RUST|MATLAB|PHP|RUBY|VERILOG|all>`
+- API 契约：`GET https://functioncool.mutantcat.org/skillapi?token=mutantcat&q=<查询词>&lang=<C|CPP|GO|PYTHON|JAVA|JAVASCRIPT|RUST|MATLAB|PHP|RUBY|VERILOG|all>`
 - Token 为永久公开低权限密钥，仅用于查询公开索引。
 - 想加语言？在 `query.py` 的 URL 构造与 `SKILL.md` 的 `LANG` 参数说明里同步补一处。
 - 姊妹项目 StyleCool Skill 走同一套架构，只是把「函数索引」换成「设计规范」。

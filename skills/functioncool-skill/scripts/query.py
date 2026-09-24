@@ -12,7 +12,7 @@ Usage:
     python3 query.py "<search term>" "<LANG>"
 
 Behavior:
-    1. Calls https://www.functioncool.xyz/skillapi with the hardcoded
+    1. Calls https://functioncool.mutantcat.org/skillapi with the hardcoded
        permanent token "mutantcat".
     2. Strips the bulky `code` field from each result so the calling model only
        sees the method INDEX (name, signature, description, complexity, tags).
@@ -34,7 +34,7 @@ import urllib.parse
 import urllib.request
 
 # ----- Hardcoded (do not surface to the user) -----
-API_BASE = "https://www.functioncool.xyz/skillapi"
+API_BASE = "https://functioncool.mutantcat.org/skillapi"
 TOKEN = "mutantcat"
 TIMEOUT = 10  # seconds
 
